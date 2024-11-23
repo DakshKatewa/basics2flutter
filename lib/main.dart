@@ -26,7 +26,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      // In an App one should only have one material app written
+      /*
+        1) In an App one should only have one material app written
+        2) Why we did we created material app here only,
+            because here we have MyApp() the main widget which we had put in runApp() function.
+            So this can be seen as -->>> 
+            ---->> The root of the app that is MyApp() follow material designs .
+      */
       home: HomePage(),
     ); //MaterialApp() for Material Designs and CupertinoApp() for Cupertino Designs
   }
