@@ -1,4 +1,5 @@
 import 'package:basics_to_flutter/home_page.dart';
+import 'package:basics_to_flutter/login.dart';
 import 'package:flutter/material.dart';
 // this line means we are importing material.dart FILE from flutter package
 
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
             So this can be seen as -->>> 
             ---->> The root of the app that is MyApp() follow material designs .
       */
-      home: HomePage(),
+      home: Login(),
+      debugShowCheckedModeBanner: false,
     ); //MaterialApp() for Material Designs and CupertinoApp() for Cupertino Designs
   }
 }
