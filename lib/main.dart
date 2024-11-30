@@ -1,9 +1,16 @@
+import 'package:basics_to_flutter/firebase_options.dart';
 import 'package:basics_to_flutter/home_page.dart';
 import 'package:basics_to_flutter/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // this line means we are importing material.dart FILE from flutter package
 
-void main() {
+void main() async {
+  // runApp fn already have this binding ,but we initializzed firebase before runApp thus we need to initialize manually
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // Entry point of any flutter project
 
   runApp(const MyApp());

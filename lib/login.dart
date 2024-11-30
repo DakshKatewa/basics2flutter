@@ -1,4 +1,6 @@
-import 'package:basics_to_flutter/cores/app_colors.dart';
+//import 'package:basics_to_flutter/cores/app_colors.dart';
+import 'package:basics_to_flutter/welcom.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,6 +23,15 @@ class _LoginState extends State<Login> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  // create user using firebaseAuth
+  Future<void> createUserWithEmailPassword() async {
+    final userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim());
+    print(userCredential);
   }
 
   @override
@@ -64,7 +75,9 @@ class _LoginState extends State<Login> {
             height: 11,
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              await createUserWithEmailPassword();
+            },
             child: const Text("signUP"),
           )
         ],

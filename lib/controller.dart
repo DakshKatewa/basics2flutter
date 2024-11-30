@@ -8,7 +8,15 @@ class Controller extends StatefulWidget {
 }
 
 class _ControllerState extends State<Controller> {
+  // ignore: unused_field
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
