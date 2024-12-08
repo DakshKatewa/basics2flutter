@@ -1,4 +1,5 @@
 //import 'package:basics_to_flutter/cores/app_colors.dart';
+import 'package:basics_to_flutter/old_user.dart';
 import 'package:basics_to_flutter/welcom.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,11 +28,16 @@ class _LoginState extends State<Login> {
 
   // create user using firebaseAuth
   Future<void> createUserWithEmailPassword() async {
-    final userCredential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim());
-    print(userCredential);
+    try {
+      final userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              // this is a predefined function
+              email: emailController.text.trim(),
+              password: passwordController.text.trim());
+      print(userCredential);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
   }
 
   @override
@@ -79,6 +85,30 @@ class _LoginState extends State<Login> {
               await createUserWithEmailPassword();
             },
             child: const Text("signUP"),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 12),
+                child: const Text("Already a user "),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 12),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => OldUser()));
+                  },
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              )
+            ],
           )
         ],
       ),

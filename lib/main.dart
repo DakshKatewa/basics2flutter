@@ -9,7 +9,8 @@ void main() async {
   // runApp fn already have this binding ,but we initializzed firebase before runApp thus we need to initialize manually
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions
+        .currentPlatform, // determines and retrieves the appropriate Firebase configuration for the platform on which the app is running (e.g., Android, iOS, web, etc.).
   );
   // Entry point of any flutter project
 
