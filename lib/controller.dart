@@ -4,7 +4,10 @@ class Controller extends StatefulWidget {
   const Controller({super.key});
 
   @override
-  State<Controller> createState() => _ControllerState();
+  State<Controller> createState() => _ControllerState(); 
+  /*
+    _controllerState is the state class, Controller class is the widget class
+   */
 }
 
 class _ControllerState extends State<Controller> {

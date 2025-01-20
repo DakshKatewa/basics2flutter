@@ -2,18 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class OldUser extends StatefulWidget {
-  const OldUser({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<OldUser> createState() => _OldUserState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _OldUserState extends State<OldUser> {
+class _SignInState extends State<SignIn> {
   // controllers
   final TextEditingController _loginEmailController = TextEditingController();
-  final TextEditingController _loginPasswordController =
-      TextEditingController();
+  final TextEditingController _loginPasswordController =  TextEditingController();
 
   // disposing these controllers
   @override
@@ -26,13 +25,18 @@ class _OldUserState extends State<OldUser> {
   // signing up user
   Future<void> loginUserWithEmailPassword() async {
     try {
-      final userCredential = FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _loginEmailController.text.trim(),
-          password: _loginPasswordController.text.trim());
-      print(userCredential);
+      final userLoginCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: _loginEmailController.text.trim(),
+              password: _loginPasswordController.text.trim());
 
-      //if(user != null){}
+      // check for user , if already present then enter him in the app
+      if (userLoginCredential.user != null) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, '/welcome');
+      }
     } on FirebaseAuthException catch (e) {
+      // ignore: avoid_print
       print(e.message);
     }
   }

@@ -1,19 +1,19 @@
-//import 'package:basics_to_flutter/cores/app_colors.dart';
-import 'package:basics_to_flutter/old_user.dart';
+import 'package:basics_to_flutter/auth/signup.dart';
+import 'package:basics_to_flutter/auth/signin.dart';
 import 'package:basics_to_flutter/welcom.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
   // controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -29,13 +29,19 @@ class _LoginState extends State<Login> {
   // create user using firebaseAuth
   Future<void> createUserWithEmailPassword() async {
     try {
-      final userCredential =
+      final userSignUpCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
               // this is a predefined function
               email: emailController.text.trim(),
               password: passwordController.text.trim());
-      print(userCredential);
+      if (userSignUpCredential.user != null) {
+        Navigator.pushNamed(
+            // ignore: use_build_context_synchronously
+            context,
+            '/welcome');
+      }
     } on FirebaseAuthException catch (e) {
+      // ignore: avoid_print
       print(e.message);
     }
   }
@@ -84,7 +90,7 @@ class _LoginState extends State<Login> {
             onPressed: () async {
               await createUserWithEmailPassword();
             },
-            child: const Text("signUP"),
+            child: const Text("signUp"),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -97,11 +103,13 @@ class _LoginState extends State<Login> {
                 margin: const EdgeInsets.only(top: 12),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => OldUser()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SignIn()),
+                    );
                   },
                   child: const Text(
-                    "Login",
+                    "SignIn",
                     style: TextStyle(
                       color: Colors.blue,
                     ),
